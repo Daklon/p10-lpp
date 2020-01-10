@@ -2,6 +2,7 @@ require 'rspec/autorun'
 require 'lib/Alimentos/Alimentos.rb'
 require 'lib/Alimentos/List.rb'
 require 'lib/Alimentos/Plato.rb'
+require 'lib/Alimentos/DSLPlato.rb'
 
 A1 = Alimentos.new("Tofu",8.0,1.9,4.8,2.0,2.2)
 A2 = Alimentos.new("Chocolate",5.3,47.0,30.0,2.3,3.4)
@@ -14,12 +15,85 @@ A8 = Alimentos.new("Carne de Cerdo", 21.5, 0.0, 6.3, 7.6, 11.0)
 A9 = Alimentos.new("Nueces", 20.0, 21.0, 54.0, 0.3, 7.9)
 A10 = Alimentos.new("Queso", 25.0, 1.3, 33.0, 11.0, 41.0)
 A11 = Alimentos.new("Leche de Vaca", 3.3, 4.8, 3.2, 3.2, 8.9)
+A12 = Alimentos.new("Huevos", 13.0, 1.0, 11.0, 4.2, 5.7)
 
 describe Alimentos do
 	before :each do
 		@L1 = List.new()
 		@L1.push_back(1)
 		@L1.push_back(2)
+	end
+
+	context "DSLPlato" do
+		before :all do
+			@plato = DSLPlato.new("Hamburguesa") do
+				nombre	"Hamburguesa especial de la casa"
+				alimento A6,
+					:gramos => 100
+				alimento A12,
+					:gramos => 200
+			end
+		end
+		it "Crear plato usando dsl" do
+			expect(@plato.to_s).to eq("Hamburguesa especial de la casa\n" +
+						  "Carne de Vaca - 100 gramos\n" +
+						  "Huevos - 200 gramos")
+		end
+	end
+
+	context "DSLMenu" do
+		before :all do
+			guiso = DSLPlato.new("Guiso de lentejas") do
+        		      nombre    "Guiso de lentejas con carne"
+        		      alimento  A5,
+                  	      		:gramos => 150
+        		      alimento  A7,
+                  			:gramos => 75
+      			end
+      			hamburguesa = DSLPlato.new("Hamburguesa") do
+        		      nombre    "Hamburguesa especial de la casa"
+        		      alimento  A6,
+                  			:gramos => 200
+        		      alimento  A12,
+                  			:gramos => 100
+      			end
+      			cervezaMenu = DSLPlato.new("Cerveza") do
+        		      nombre    "Cerveza de importación"
+        		      alimento  A3,
+                  			:gramos => 250
+      			end
+		        @menu = DSLMenu.new("Combinado nº. 1") do
+        		      descripcion "Guiso, hamburguesa, cerveza"
+        		      componente  guiso,
+                    			:precio => 3.50
+        		      componente  hamburguesa,
+                    			:precio => 4.25
+        		      componente  cervezaMenu,
+                    			:precio => 2.00
+        		      precio      9.75
+      			end
+		end
+		it "crear nuevo menu usando dsl" do
+			expect(@menu.to_s).to eq("Menu: Guiso, hamburguesa, cerveza\n" +
+                               			 "Platos:\n" +
+                               			 "Plato 1: 3.5€\n" +
+                               			 "Guiso de lentejas con carne\n" +
+                               			 "lentejas - 150 gramos\n" +
+                               			 "carne de cordero - 75 gramos\n" +
+                               			 "Valor nutricional: 567.58\n" +
+                               			 "Valor ambiental: 0.4\n" +
+                               			 "Plato 2: 4.25€\n" +
+                               			 "Hamburguesa especial de la casa\n" +
+                               			 "carne de vaca - 200 gramos\n" +
+                               			 "huevos - 100 gramos\n" +
+                               			 "Valor nutricional: 298.6\n" +
+                               			 "Valor ambiental: 104.2\n" +
+                               			 "Plato 3: 2.0€\n" +
+                               			 "Cerveza de importación\n" +
+                               			 "cerveza - 250 gramos\n" +
+                              			 "Valor nutricional: 68.8\n" +
+                              			 "Valor ambiental: 0.48")
+		end
 	end
 
 	context "Menu" do
