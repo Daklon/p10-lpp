@@ -7,6 +7,8 @@ group :development do
   gem 'guard-rspec'
   gem 'guard-shell'
   gem 'guard-bundler'
+  gem 'rake'
+  gem 'rspec'
 end
 
 git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
