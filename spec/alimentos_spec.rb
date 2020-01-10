@@ -3,6 +3,7 @@ require 'lib/Alimentos/Alimentos.rb'
 require 'lib/Alimentos/List.rb'
 require 'lib/Alimentos/Plato.rb'
 require 'lib/Alimentos/DSLPlato.rb'
+require 'lib/Alimentos/DSLMenu.rb'
 
 A1 = Alimentos.new("Tofu",8.0,1.9,4.8,2.0,2.2)
 A2 = Alimentos.new("Chocolate",5.3,47.0,30.0,2.3,3.4)
@@ -79,18 +80,18 @@ describe Alimentos do
                                			 "Plato 1: 3.5€\n" +
                                			 "Guiso de lentejas con carne\n" +
                                			 "lentejas - 150 gramos\n" +
-                               			 "carne de cordero - 75 gramos\n" +
+                               			 "Carne de Cordero - 75 gramos\n" +
                                			 "Valor nutricional: 567.58\n" +
                                			 "Valor ambiental: 0.4\n" +
                                			 "Plato 2: 4.25€\n" +
                                			 "Hamburguesa especial de la casa\n" +
-                               			 "carne de vaca - 200 gramos\n" +
-                               			 "huevos - 100 gramos\n" +
+                               			 "Carne de Vaca - 200 gramos\n" +
+                               			 "Huevos - 100 gramos\n" +
                                			 "Valor nutricional: 298.6\n" +
                                			 "Valor ambiental: 104.2\n" +
                                			 "Plato 3: 2.0€\n" +
                                			 "Cerveza de importación\n" +
-                               			 "cerveza - 250 gramos\n" +
+                               			 "Cerveza - 250 gramos\n" +
                               			 "Valor nutricional: 68.8\n" +
                               			 "Valor ambiental: 0.48")
 		end
