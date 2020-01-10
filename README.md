@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/Daklon/p10-lpp.svg?branch=master)](https://travis-ci.org/Daklon/p10-lpp)
 # Alimentos
 
 ## Author
