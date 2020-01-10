@@ -19,6 +19,9 @@ Nodo = Struct.new(:value, :next, :prev)
        ret += "#{temp.value.to_s}}"
        return ret
      end
+     def <<(value)
+       push_back(value)
+     end
      def each
        temp = @head
        while (temp != nil)
