@@ -24,11 +24,11 @@ class DSLPlato
 	end
     end
     def getProteinas
-      	temp = listaAlimentos.head
-      	temp2 = listaGramos.head
+      	temp = @listaAlimentos.head
+      	temp2 = @listaGramos.head
       	proteinas = 0
       	gramosTotales = 0
-      	while (temp != nil && listaGramos != nil)
+      	while (temp != nil && @listaGramos != nil)
             proteinas += temp.value.proteinas * (temp2.value/100)
             gramosTotales = temp2.value
             temp = temp.next
@@ -37,11 +37,11 @@ class DSLPlato
       	return ((proteinas * 100)/gramosTotales).round(2)
     end
     def getLipidos
-      	temp = listaAlimentos.head
-      	temp2 = listaGramos.head
+      	temp = @listaAlimentos.head
+      	temp2 = @listaGramos.head
       	lipidos = 0
       	gramosTotales = 0
-      	while temp != nil && listaGramos != nil
+      	while temp != nil && @listaGramos != nil
             lipidos += temp.value.lipidos * (temp2.value/100)
             gramosTotales = temp2.value
             temp = temp.next
@@ -50,11 +50,11 @@ class DSLPlato
 	return ((lipidos * 100)/gramosTotales).round(2)
     end
     def getCarbohidratos
-        temp = listaAlimentos.head
-        temp2 = listaGramos.head
+        temp = @listaAlimentos.head
+        temp2 = @listaGramos.head
         carbohidratos = 0
         gramosTotales = 0
-        while temp != nil && listaGramos != nil
+        while temp != nil && @listaGramos != nil
             carbohidratos += temp.value.carbohidratos * (temp2.value/100)
             gramosTotales = temp2.value
             temp = temp.next
@@ -63,7 +63,7 @@ class DSLPlato
         return ((carbohidratos * 100)/gramosTotales).round(2)
     end
     def getGramosTotales
-        temp = listaGramos.head
+        temp = @listaGramos.head
         gramosTotales = 0
         while temp != nil
             gramosTotales = temp.value
@@ -89,15 +89,10 @@ class DSLPlato
             getValorCaloricoTotal <=> other.getValorCaloricoTotal
         end
     end
-end
-class PlatoCompuesto < Plato
-    def initialize (nombre, listaAlimentos, listaGramos)
-      super(nombre, listaAlimentos, listaGramos)
-    end
     def get_green_house_emissions
-      temp = listaAlimentos.head
-      temp2 = listaGramos.head
-      
+      temp = @listaAlimentos.head
+      temp2 = @listaGramos.head
+
       total_ghe = 0
       while temp != nil && temp2 != nil
         total_ghe += temp.value.gases_efecto_invernadero * (temp2.value / 100)
@@ -106,10 +101,9 @@ class PlatoCompuesto < Plato
       end
       total_ghe.round(2)
     end
-
     def get_land_used
-      temp = listaAlimentos.head
-      temp2 = listaGramos.head
+      temp = @listaAlimentos.head
+      temp2 = @listaGramos.head
 
       total_land_used = 0
       while temp != nil && temp2 != nil
@@ -118,9 +112,4 @@ class PlatoCompuesto < Plato
       end
       total_land_used.round(2)
     end
-    
-    def to_s
-      super + "Eficiencia energética: #{getValorCaloricoTotal}\n"
-    end
-  end
-
+end
